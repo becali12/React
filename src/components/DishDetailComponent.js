@@ -30,6 +30,7 @@ class DishDetail extends Component {
                     <Card>
                         <CardText tag="h5"> {comment.author} </CardText>
                         <CardBody> {comment.comment} </CardBody>
+                        <CardText> {comment.date} </CardText>
                     </Card>
                 </div>
             );
@@ -55,19 +56,6 @@ class DishDetail extends Component {
                 </div>
             </div>
         );
-        // else if(comments == null) return (
-        //     <div>
-        //         <div className='row'>
-        //         <Card> 
-        //         <CardImg width="100%" object src={dish.image} alt={dish.name}/>
-        //         <CardBody>
-        //                 <CardTitle tag="h5"> {dish.name} </CardTitle>
-        //                 <CardText> {dish.description} </CardText>
-        //             </CardBody>
-        //         </Card>             
-        //         </div>
-        //     </div>
-        // );
     }
 }
 
