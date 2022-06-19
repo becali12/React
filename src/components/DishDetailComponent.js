@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
 
 class DishDetail extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-        }
-    }
 
     renderDish(dish) {
         return (
@@ -23,26 +16,32 @@ class DishDetail extends Component {
         );
     }
 
-    renderComments(comments) {
-        const render_comments = comments.map((comment) => {
+    renderComments(dish) {
+        let render_comments = null;
+        const comments = dish.comments;
+        
+        if(comments != null) {
+            render_comments = comments.map((comment) => {
+                return(
+                    <div key={comment.id}>
+                        <Card>
+                            <CardText tag="h5"> {comment.author} </CardText>
+                            <CardBody> {comment.comment} </CardBody>
+                            <CardText> {new Intl.DateTimeFormat('en-US',{ year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} </CardText>
+                        </Card>
+                    </div>
+                );
+            })
             return(
-                <div key={comment.id}>
-                    <Card>
-                        <CardText tag="h5"> {comment.author} </CardText>
-                        <CardBody> {comment.comment} </CardBody>
-                        <CardText> {comment.date} </CardText>
-                    </Card>
-                </div>
+                <div>{render_comments}</div>
             );
-        })
-        return(
-            <div>{render_comments}</div>
-        );
+        }
+        else return (<div>There are no comments at the moment</div>);
     }
 
-    render() {
-        const dish = this.props.dish; // dish is provided from MenuComponent when a dish image is clicked on
-    
+    render() {   
+        if(this.props.dish == null)
+            return (<div></div>);
         return (
             <div>
                 <div className='row'>                
@@ -51,7 +50,9 @@ class DishDetail extends Component {
                     </div>
                     <div className="col-12 col-md-5 m-1">
                         <h3>Comments</h3>
-                         {this.renderComments(this.props.dish.comments)}
+                        <ul>
+                          <li> {this.renderComments(this.props.dish)} </li>
+                        </ul>
                     </div>
                 </div>
             </div>
