@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
 
 
 function RenderDish({dish}) {
     return (
-        <div className="col-12 col-md-5 m-1">
+        <div className="col-md-4 mx-auto m-1">
             <Card> 
             <CardImg width="100%" object src={dish.image} alt={dish.name}/>
             <CardBody>
@@ -47,9 +47,7 @@ function RenderComments({comments}) {
         return (
             <div>
                 <div className='row'>                
-                    <div className="col-12 col-md-5 m-1">
                         <RenderDish dish={props.dish}/>
-                    </div>
                     <div className="col-12 col-md-5 m-1">
                         <h3>Comments</h3>
                         <ul>
