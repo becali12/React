@@ -2,6 +2,7 @@ import { Component } from 'react';
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
 import Contact from './ContactComponent';
+import About from './AboutComponnet';
 import { DISHES } from '../shared/dishes';
 import { COMMENTS } from '../shared/comments';
 import { LEADERS } from '../shared/leaders';
@@ -54,6 +55,7 @@ class Main extends Component {
           <Route exact path="/menu" element={<Menu dishes={this.state.dishes}/>} />
           <Route path="/menu/:dishId" element={<DishWithId/>}/>
           <Route exact path="/contactus" element={<Contact/>}/>
+          <Route exact path="/aboutus" element={<About leaders={this.state.leaders}/>}/>
           <Route path="*" element={<Navigate to ="/home"/>}/>
         </Routes>
         <Footer/>

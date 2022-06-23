@@ -24,16 +24,15 @@ function RenderComments({comments}) {
                 <div className='col-12 col-md-5 m-1'>
                     <h1 className="mb-4"> Comments </h1>
                     <ul className='list-unstyled'>
-                        {comments.map((comment) => {
-                            return (
+                        {comments.map(comment => // return is implied
                                 <li key = {comment.id}>
                                     <h3>{comment.author}:</h3>
                                     <p>{comment.comment}</p>
                                     <p>{new Intl.DateTimeFormat('en-US',{ year: 'numeric', month: 'short', day: '2-digit'}).format(
                                 new Date(Date.parse(comment.date)))}</p>
                                 </li>
-                            );
-                        })}
+                            
+                        )}
                     </ul>
                 </div>
             );
