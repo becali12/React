@@ -1,6 +1,86 @@
-import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import React, { Component } from 'react';
+import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem,
+Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Button, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
+
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !(val) || (val.length <= len);
+const minLength = (len) => (val) => val && (val.length >= len);
+const isNumber = (val) => !isNaN(Number(val));
+const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+
+class CommentForm extends Component {
+    
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isModalOpen: false
+        }
+
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    toggleModal() {
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
+        });
+    }
+
+    handleSubmit(event) {
+        this.toggleModal();
+        alert("Name: " + this.username.value + "Comment: " + this.comment.value);
+
+        event.preventDefault();
+    }
+
+    render() {
+        return (
+            <>
+            <Button outline onClick={this.toggleModal}>
+                                        <span className='fa'> Submit Comment </span>
+            </Button>
+            <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
+                    <ModalBody>
+                        <Form onSubmit={this.handleSubmit}>
+                            <FormGroup>
+                            <Label>
+                                <Label htmlFor="rating">Rating </Label>
+                                <Input type="select" name="rating" id="rating">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                </Input>
+                            </Label>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label>
+                                    <Label htmlFor="username">Your Name</Label> 
+                                    <Input type="text" id="username" name="username" cols="45"
+                                    innerRef={(input) => this.username = input}/>
+                                </Label> 
+                            </FormGroup>
+                            <FormGroup>
+                                <Label>
+                                    <Label htmlFor="comment">Comment</Label> 
+                                    <Input type="textarea" id="comment" name="comment" cols="45" rows="6"
+                                    innerRef={(input) => this.comment = input}/>
+                                </Label> 
+                            </FormGroup>
+
+                            <Button type="submit" value="submit" className='bg-primary'> Submit </Button>
+                        </Form>    
+                    </ModalBody>    
+                </Modal> 
+            </>
+        );
+    }
+}
+
 
 
 function RenderDish({dish}) {
@@ -34,6 +114,7 @@ function RenderComments({comments}) {
                             
                         )}
                     </ul>
+                    <CommentForm/>
                 </div>
             );
         }
